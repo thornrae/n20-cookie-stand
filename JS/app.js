@@ -1,8 +1,10 @@
 'use strict';
 
-//open hours array 
+//open hours array
 
 var openHours = ['6:00AM', '7:00AM', '8:00AM', '9:00AM', '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM', '4:00PM', '5:00PM', '6:00PM', '7:00PM'];
+
+//this is an array of objects
 var allCookieStores = [];
 
 var tableParent = document.getElementById('store-data-table');
@@ -87,38 +89,50 @@ function renderTableData () {
 renderTableData();
 
 function renderFooterData () {
+  //this creates and appends "TOTAL" after the last store instance
   var footerRow = document.createElement('tr');
   var footerTotalText = document.createElement('th');
   footerTotalText.textContent = 'Total:';
   footerRow.appendChild(footerTotalText);
   tableParent.appendChild(footerRow);
 
+  //create variable to store the GRAND total of totals
   var totalTotals = 0;
 
-
+  //create hourly total with a for loop. loops thru store hours
   for(var i = 0; i < openHours.length; i++){
-    var hourlyTotals = 0; //this clears value so that hourly totals restart
+  // create variable to store total. having it inside the loop clears value so that hourly totals restart when we loop back thru. Note that totalTotals is outside of the loop and does not reset
+    var hourlyTotals = 0;
+    //create a th - we will add content (the hourly totals) to this var
     var hourlyTotalsData = document.createElement('th');
-
+    //to loop through each store location at each hour, we create a nested for loop that iterates thru the allCookieStores array which is an array that has all the data from each store instance created
     for(var j = 0; j < allCookieStores.length; j++ ){
-      hourlyTotals += allCookieStores[j].cookieSalesPerHour[i];
+    //so long as iteration is less than allCookieStores.length add hourly total of that hour of that store to hourlyTotals variable AND to the totalTotals
+      hourlyTotals += allCookieStores[j].cookieSalesPerHour[i]; //this grabs JUST the cookies sales per hour property data of whichever store location you are iterating thru
       totalTotals += allCookieStores[j].cookieSalesPerHour[i];
 
     }
+    //assigns the data of hourlyTotals to the th element created
     hourlyTotalsData.textContent = hourlyTotals;
+    //append hourlyTotalsData (which is now th's with data) to the footer row
     footerRow.appendChild(hourlyTotalsData);
+    //append the footer row to the table
     tableParent.appendChild(footerRow);
   }
+  //create a th variable for the grand total of totals
   var grandTotal = document.createElement('th');
+  //assign totalTotals varialbe to this newly created element
   grandTotal.textContent = totalTotals;
+  //append grandTotal to the footer row
   footerRow.appendChild(grandTotal);
+  //append the footer row to the parent/table
   tableParent.appendChild(footerRow);
 }
 renderFooterData();
 //create instances of each store using the new keyword to eliminate use of object literals.
 
 
-//replace the lists data for each store and build a single table of data instead 
+//replace the lists data for each store and build a single table of data instead
 
 //display each stores data in a table. each cookie stand location should have a separate render() method that creates and appends its row to the table
 
