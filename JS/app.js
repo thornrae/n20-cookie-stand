@@ -6,6 +6,7 @@ var openHours = ['6:00AM', '7:00AM', '8:00AM', '9:00AM', '10:00AM', '11:00AM', '
 
 //this is an array of objects
 var allCookieStores = [];
+console.log(allCookieStores);
 
 var tableParent = document.getElementById('store-data-table');
 
