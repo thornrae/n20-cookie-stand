@@ -1,7 +1,109 @@
-tr, th, td {
-  border: 1px solid black;
+header {
+  height: 110px;
+  background-color: salmon;
 }
 
-table {
-  border: 2px solid red;
+header nav {
+  width: 960px;
+}
+
+header img {
+  height: 100px;
+  width: 300px;
+  float: left;
+  margin-left: 10px;
+}
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 40px;
+  float: right;
+  margin-right: 150px;
+  margin-top: 60px;
+}
+
+body {
+  background-color: #FFA07A;
+}
+
+main {
+  margin: auto;
+  width: 960px;
+  padding-top: 40px;
+}
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-bottom: 20px;
+}
+
+#store-hours {
+  float: left; 
+  width: 280px;
+  height: 400px;
+  margin-right: 20px;
+}
+
+#hours-ul {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+#weekdays {
+  padding-bottom: 75px;
+}
+
+
+#locations {
+  float: left; 
+  width: 280px;
+  height: 400px;
+  margin-right: 20px
+}
+
+#locations-ul>li {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 20px;
+  font-size: 18px;
+}
+
+
+#merchandise{
+  float: left; 
+  width: 280px;
+  height: 400px;
+  overflow:scroll;
+}
+
+#about-us {
+  display: inline-block;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+p{
+  width: 440px;
+  height: 250px;
+  overflow: scroll;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  float: left;
+}
+
+h3{
+font-size: 40px;
+}
+
+#family-pic {
+  width: 440px;
+  float: right;
+}
+
+footer {
+  height: 110px;
+  background-color: salmon;
 }
