@@ -9,6 +9,9 @@ var allCookieStores = [];
 console.log(allCookieStores);
 
 var tableParent = document.getElementById('store-data-table');
+var storeForm = document.getElementById('store-form');
+var tfoot = document.createElement ('tfoot');
+
 
 //create single constructor function
 
@@ -39,10 +42,31 @@ CookieStore.prototype.customersPerHour = function() {
   return Math.floor(Math.random() * (this.maxCustomer - this.minCustomer + 1) + this.minCustomer);
 };
 
+CookieStore.prototype.renderTableData = function () {
+  // for(var i = 0; i <allCookieStores.length; i++){
+  var tableDataRow = document.createElement('tr');
+  var locationName = document.createElement('td');
+  locationName.textContent = this.location;
+  tableDataRow.appendChild(locationName);
+
+  for(var j = 0; j<openHours.length; j++){
+    var salesData = document.createElement('td');
+    salesData.textContent = this.cookieSalesPerHour[j];
+    tableDataRow.appendChild(salesData);
+  }
+  var dailyTotalsData = document.createElement('td');
+  dailyTotalsData.textContent = this.dailyTotal;
+  tableDataRow.appendChild(dailyTotalsData);
+  tableParent.appendChild(tableDataRow);
+  // }
+};
+
+
 function renderPrototypes(){
   for(var i =0; i < allCookieStores.length; i++){
     allCookieStores[i].customersPerHour();
     allCookieStores[i].getCookieSalesPerHour();
+    allCookieStores[i].renderTableData();
   }
 }
 
@@ -51,7 +75,6 @@ new CookieStore('Tokyo', 3, 24, 1.2);
 new CookieStore('Dubai', 11, 38, 3.7);
 new CookieStore('Paris', 20, 38, 2.3);
 new CookieStore('Lima', 2, 16, 4.6);
-renderPrototypes();
 
 function renderHeader () {
   var tableHeaderRow = document.createElement('tr');
@@ -70,93 +93,63 @@ function renderHeader () {
 }
 renderHeader();
 
-function renderTableData () {
-  for(var i = 0; i <allCookieStores.length; i++){
-    var tableDataRow = document.createElement('tr');
-    var locationName = document.createElement('td');
-    locationName.textContent = allCookieStores[i].location;
-    tableDataRow.appendChild(locationName);
-    for(var j = 0; j<allCookieStores[i].cookieSalesPerHour.length; j++){
-      var salesData = document.createElement('td');
-      salesData.textContent = allCookieStores[i].cookieSalesPerHour[j];
-      tableDataRow.appendChild(salesData);
-    }
-    var dailyTotalsData = document.createElement('td');
-    dailyTotalsData.textContent = allCookieStores[i].dailyTotal;
-    tableDataRow.appendChild(dailyTotalsData);
-    tableParent.appendChild(tableDataRow);
-  }
-}
-renderTableData();
+renderPrototypes();
 
 function renderFooterData () {
-  //this creates and appends "TOTAL" after the last store instance
+  //appends foot to the row
+  tableParent.appendChild(tfoot);
   var footerRow = document.createElement('tr');
   var footerTotalText = document.createElement('th');
   footerTotalText.textContent = 'Total:';
   footerRow.appendChild(footerTotalText);
-  tableParent.appendChild(footerRow);
+  tfoot.appendChild(footerRow);
 
-  //create variable to store the GRAND total of totals
   var totalTotals = 0;
 
-  //create hourly total with a for loop. loops thru store hours
   for(var i = 0; i < openHours.length; i++){
-  // create variable to store total. having it inside the loop clears value so that hourly totals restart when we loop back thru. Note that totalTotals is outside of the loop and does not reset
     var hourlyTotals = 0;
-    //create a th - we will add content (the hourly totals) to this var
     var hourlyTotalsData = document.createElement('th');
-    //to loop through each store location at each hour, we create a nested for loop that iterates thru the allCookieStores array which is an array that has all the data from each store instance created
     for(var j = 0; j < allCookieStores.length; j++ ){
-    //so long as iteration is less than allCookieStores.length add hourly total of that hour of that store to hourlyTotals variable AND to the totalTotals
-      hourlyTotals += allCookieStores[j].cookieSalesPerHour[i]; //this grabs JUST the cookies sales per hour property data of whichever store location you are iterating thru
+      hourlyTotals += allCookieStores[j].cookieSalesPerHour[i];
       totalTotals += allCookieStores[j].cookieSalesPerHour[i];
 
     }
-    //assigns the data of hourlyTotals to the th element created
     hourlyTotalsData.textContent = hourlyTotals;
-    //append hourlyTotalsData (which is now th's with data) to the footer row
     footerRow.appendChild(hourlyTotalsData);
-    //append the footer row to the table
-    tableParent.appendChild(footerRow);
+    tfoot.appendChild(footerRow);
   }
-  //create a th variable for the grand total of totals
   var grandTotal = document.createElement('th');
-  //assign totalTotals varialbe to this newly created element
   grandTotal.textContent = totalTotals;
-  //append grandTotal to the footer row
   footerRow.appendChild(grandTotal);
-  //append the footer row to the parent/table
-  tableParent.appendChild(footerRow);
+  tfoot.appendChild(footerRow);
 }
 renderFooterData();
-//create instances of each store using the new keyword to eliminate use of object literals.
+
+function handleSubmit(event){
+  event.preventDefault();
+  var location = event.target.storename.value;
+  // console.log(`store name: ${storeName}`);
+
+  var minCustomer = parseInt(event.target.mincustomer.value);
+  // console.log(`minCust: ${minCust}`);
+
+  var maxCustomer = parseInt(event.target.maxcustomer.value);
+  // console.log(`maxCust: ${maxCust}`);
+
+  var avgCookieSale = parseInt(event.target.averagesale.value);
+  // console.log(`avgCookie: ${avgCookie}`);
+
+  var newStore = new CookieStore(location, minCustomer, maxCustomer, avgCookieSale);
+
+  //clear the footer
+  tfoot.innerHTML = '';
+  newStore.customersPerHour();
+  newStore.getCookieSalesPerHour();
+  newStore.renderTableData();
+  renderFooterData();
+}
 
 
-//replace the lists data for each store and build a single table of data instead
+storeForm.addEventListener('submit', handleSubmit);
 
-//display each stores data in a table. each cookie stand location should have a separate render() method that creates and appends its row to the table
-
-//the header and footer row are each created in their own stand-alone function - use header cell for the header row (containing store hours) and the footer row (showing hourly and grand totals across all stores)
-
-//random number generator function
-
-
-//create separate object literals for each shop location that outputs to sales.html
-
-
-//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-//   customersPerHour: function() {
-//     return Math.floor(Math.random() * (this.maxCustomer - this.minCustomer + 1) + this.minCustomer);
-//   },
-
-
-
-//   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
-//   dailyTotal: function (){
-//     var total = this.cookieSalesPerHour.reduce(function (a,b){
-//       return a + b;
-//     }, 0);
-//     return total;
-//   },
 

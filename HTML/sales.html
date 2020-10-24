@@ -13,9 +13,29 @@
 
   <main>
     <table id="store-data-table">
-
     </table>
+
+    <form id="store-form">
+      <fieldset>
+        <legend>Enter New Store Sales Information</legend>
+
+        <label for="storename">Store Location</label>
+        <input type="text" name="storename">
+
+        <label for="mincustomer">Min Customer</label>
+        <input type="number" name="mincustomer">
+
+        <label for="maxcustomer">Max Customer</label>
+        <input type="number" name="maxcustomer">
+<!-- entering float as type allows for decimal or type = number and step = .whatever -->
+        <label for="averagesale">Average Sale</label>
+        <input type="float" name="averagesale">
+
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
   </main>
+
 </body>
 <script src = "/JS/app.js"></script>
 <footer>
