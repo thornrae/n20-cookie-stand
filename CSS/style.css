@@ -15,7 +15,7 @@ header img {
 }
 
 h1 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: 'Patrick Hand', cursive;
   font-size: 40px;
   float: right;
   margin-right: 150px;
@@ -35,8 +35,8 @@ main {
 h2 {
   font-size: 30px;
   text-align: center;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   margin-bottom: 20px;
+  font-family: 'Patrick Hand', cursive;
 }
 
 #store-hours {
@@ -47,8 +47,8 @@ h2 {
 }
 
 #hours-ul {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 
@@ -61,12 +61,13 @@ h2 {
   float: left; 
   width: 280px;
   height: 400px;
-  margin-right: 20px
+  margin-right: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #locations-ul>li {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   padding-bottom: 20px;
   font-size: 18px;
 }
@@ -90,12 +91,13 @@ p{
   height: 250px;
   overflow: scroll;
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   float: left;
 }
 
 h3{
 font-size: 40px;
+font-family: 'Patrick Hand', cursive;
 }
 
 #family-pic {
